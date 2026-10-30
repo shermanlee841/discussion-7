@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import NewPostForm from "./NewPostForm";
 
@@ -17,6 +18,10 @@ type PostsDisplayProps = {
 export default function PostsDisplay({ posts }: PostsDisplayProps) {
     const [postsState, setPostsState] = useState(posts);
 
+    const addPost = (post: Post) => {
+        setPostsState((currentPosts) => [...currentPosts, post]);
+    };
+
     return (
         <div>
             {postsState.map((post) => (
@@ -29,7 +34,7 @@ export default function PostsDisplay({ posts }: PostsDisplayProps) {
                 </div>
             ))}
 
-            <NewPostForm />
+            <NewPostForm addPost={addPost} />
         </div>
     );
 }

@@ -1,20 +1,38 @@
 "use client";
-
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import FormHelperText from "@mui/material/FormHelperText";
 import TextField from "@mui/material/TextField";
 import Textarea from "@mui/joy/Textarea";
+import createNewPost from "../../lib/createNewPost";
 
-export default function NewPostForm() {
+type Post = {
+    id: string;
+    title: string;
+    content: string;
+    upvotes: number;
+    downvotes: number;
+};
+
+type NewPostFormProps = {
+    addPost: (post: Post) => void;
+};
+
+export default function NewPostForm({ addPost }: NewPostFormProps) {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (
+        event: React.FormEvent<HTMLFormElement>
+    ) => {
         event.preventDefault();
 
-        console.log("Title:", title);
-        console.log("Content:", content);
+        const newPost = await createNewPost(title, content);
+
+        addPost(newPost);
+
+        setTitle("");
+        setContent("");
     };
 
     return (
