@@ -1,8 +1,10 @@
-export default function About() {
+import getAllPosts from "../../lib/getAllPosts";
+import PostsDisplay from "../components/PostsDisplay";
+
+export default async function Home() {
+    const posts = await getAllPosts();
+
     return (
-        <main>
-            <h1>About</h1>
-            <p>This is the about page.</p>
-        </main>
+        <PostsDisplay posts={posts} />
     );
 }
