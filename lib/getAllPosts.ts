@@ -1,7 +1,13 @@
-
-import { PostProps } from "@/types";
-import getCollection, { POSTS_COLLECTION } from "@/db";
+import getCollection, { POSTS_COLLECTION } from "../db";
 import { getRedisClient } from "@/redis";
+
+type PostProps = {
+    id: string;
+    title: string;
+    content: string;
+    upvotes: number;
+    downvotes: number;
+};
 
 const CACHE_KEY = "all_posts";
 
